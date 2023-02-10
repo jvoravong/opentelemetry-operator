@@ -5,7 +5,17 @@
 FROM busybox
 
 ARG version
-
-ADD https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/download/v$version/opentelemetry-javaagent.jar /javaagent.jar
+# Update the image to a splunk distibution  https://github.com/signalfx/splunk-otel-java/releases/download/v1.20.0/splunk-otel-javaagent-all.jar
+ADD https://github.com/signalfx/splunk-otel-java/releases/download/v1.20.0/splunk-otel-javaagent-all.jar /javaagent.jar
+# run  docker build .
+# push the docker image to a public repo
+# docker tag sha_value {repo/imagename}
+#
+# docker tag 391089d621df jvsplk/splunk-otel-java
+# docker push jvsplk/splunk-otel-java
+#
+# Result:
+# https://hub.docker.com/repository/docker/jvsplk/splunk-otel-java/general
+# jvsplk/splunk-otel-java:latest
 
 RUN chmod -R go+r /javaagent.jar

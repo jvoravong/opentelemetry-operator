@@ -87,6 +87,25 @@ func TestEffectiveAnnotationValue(t *testing.T) {
 		},
 
 		{
+			"pod-has-concrete-instance-from-a-specified-namespace",
+			"some-instance-from-pod",
+			corev1.Pod{
+				ObjectMeta: metav1.ObjectMeta{
+					Annotations: map[string]string{
+						annotationInjectJava: "specified-namespace/some-instance-from-pod",
+					},
+				},
+			},
+			corev1.Namespace{
+				ObjectMeta: metav1.ObjectMeta{
+					Annotations: map[string]string{
+						annotationInjectJava: "some-instance",
+					},
+				},
+			},
+		},
+
+		{
 			"pod-has-explicit-false",
 			"false",
 			corev1.Pod{

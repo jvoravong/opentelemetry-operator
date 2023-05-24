@@ -4,10 +4,9 @@
 #  - Grant the necessary access to the jar. `chmod -R go+r /javaagent.jar`
 #  - For auto-instrumentation by container injection, the Linux command cp is
 #    used and must be availabe in the image.
-FROM busybox
 
+# TODO: Remove dev image reference
+FROM jvsplk/opentelemetry-operator-cp:v0.0.1
 ARG version
-
-ADD https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/download/v$version/opentelemetry-javaagent.jar /javaagent.jar
-
-RUN chmod -R go+r /javaagent.jar
+ARG release_url=https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/download/v${version}/opentelemetry-javaagent.jar
+ADD --chmod=go+r $release_url /javaagent.jar

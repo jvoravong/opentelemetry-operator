@@ -37,6 +37,7 @@ spec:
     - name: OTEL_PROPAGATORS
       value: jaeger,b3
     - name: OTEL_RESOURCE_ATTRIBUTES
+      value: jaeger,b3,asdfasdfasdf
     volumeMounts:
     - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
     - mountPath: /otel-auto-instrumentation

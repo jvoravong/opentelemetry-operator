@@ -2,6 +2,7 @@ apiVersion: opentelemetry.io/v1alpha1
 kind: Instrumentation
 metadata:
   name: java
+# This is a test to see if comments are validated against.
 spec:
   env:
     - name: OTEL_TRACES_EXPORTER

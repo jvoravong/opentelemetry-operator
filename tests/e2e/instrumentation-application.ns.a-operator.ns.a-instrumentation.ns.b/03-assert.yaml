@@ -1,7 +1,6 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  namespace: my-other-ns
   annotations:
     sidecar.opentelemetry.io/inject: "true"
     instrumentation.opentelemetry.io/inject-java: "my-other-ns/java"
@@ -18,7 +17,7 @@ spec:
     - name: SPLUNK_PROFILER_ENABLED
       value: "false"
     - name: JAVA_TOOL_OPTIONS
-      value: " -javaagent:/otel-auto-instrumentation-java/javaagent.jar"
+      value: " -javaagent:/otel-auto-instrumentation/javaagent.jar"
     - name: OTEL_TRACES_EXPORTER
       value: otlp
     - name: OTEL_EXPORTER_OTLP_ENDPOINT
@@ -40,15 +39,11 @@ spec:
     - name: OTEL_RESOURCE_ATTRIBUTES
     volumeMounts:
     - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
-    - mountPath: /otel-auto-instrumentation-java
-      name: opentelemetry-auto-instrumentation-java
+    - mountPath: /otel-auto-instrumentation
+      name: opentelemetry-auto-instrumentation
   - name: otc-container
   initContainers:
-  - name: opentelemetry-auto-instrumentation-java
-    securityContext:
-      allowPrivilegeEscalation: false
-      capabilities:
-        drop: ["ALL"]
+  - name: opentelemetry-auto-instrumentation
 status:
   phase: Running
 ---

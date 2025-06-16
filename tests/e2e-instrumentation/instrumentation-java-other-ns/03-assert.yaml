@@ -1,6 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
+  namespace: my-other-ns
   annotations:
     instrumentation.opentelemetry.io/inject-java: my-other-ns/java
     sidecar.opentelemetry.io/inject: "true"
@@ -75,3 +76,9 @@ status:
   - name: opentelemetry-auto-instrumentation-java
     ready: true
   phase: Running
+---
+apiVersion: opentelemetry.io/v1alpha1
+kind: Instrumentation
+metadata:
+  name: java
+  namespace: my-other-ns
